@@ -22,7 +22,7 @@ class Customer(db.Model):
 	password = db.Column(db.String(30))
 	fb_id = db.Column(db.Integer)
 	google_id = db.Column(db.Integer)
-	stripe_token = db.Column(db.String(30))
+	stripe_token = db.Column(db.String(256))
 	email = db.Column(db.String(80), unique=True)
 	phone_number = db.Column(db.String(30))
 	country_of_residence = db.Column(db.String(10))
