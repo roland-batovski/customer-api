@@ -66,7 +66,7 @@ customers_schema=CustomerSchema(many=True)
 def index():
 	customers = Customer.query.all()
 	result = customers_schema.dump(customers)
-	return jsonify(result.data)
+	return jsonify(result.data), 200
 
 # Returns a specific customer if found by an id, otherwise an error
 @app.route('/customers/<int:id>', methods = ['GET'])
