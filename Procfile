@@ -1,1 +1,1 @@
-web: gunicorn -w 4 app:stasher-customers-api
+web: gunicorn -w 4 app:app
