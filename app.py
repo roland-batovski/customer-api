@@ -17,14 +17,14 @@ ma = Marshmallow(app)
 
 class Customer(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	full_name = db.Column(db.String(30))
+	full_name = db.Column(db.String(256))
 	created = db.Column(db.Date)
-	password = db.Column(db.String(30))
+	password = db.Column(db.String(256))
 	fb_id = db.Column(db.Integer)
 	google_id = db.Column(db.Integer)
 	stripe_token = db.Column(db.String(256))
 	email = db.Column(db.String(80), unique=True)
-	phone_number = db.Column(db.String(30))
+	phone_number = db.Column(db.String(256))
 	country_of_residence = db.Column(db.String(10))
 	timezone = db.Column(db.String(20))
 	gender = db.Column(db.String(1))
@@ -86,17 +86,17 @@ def create_customer():
 	if not request_json:
 		return jsonify({'error' : 'bad request. please use JSON format'}), 400
 
-	email = request_json.get('email')
-	full_name = request_json.get('full_name')
-	password = request_json.get('password')
-	fb_id = request_json.get('fb_id')
-	google_id = request_json.get('google_id')
-	stripe_token = uuid.uuid4().hex # for simplicity, i generate a random hash here. normally the stripe library and a license would be necessary to generate a valid token
-	phone_number = request_json.get('phone_number')
-	country_of_residence = request_json.get('country_of_residence')
-	timezone = request_json.get('timezone')
-	gender = request_json.get('gender')
-	birthday = request_json.get('birthday')
+	email 					= request_json.get('email')
+	full_name 				= request_json.get('full_name')
+	password 				= request_json.get('password') # should hash the user password here for security
+	fb_id 					= request_json.get('fb_id')
+	google_id 				= request_json.get('google_id')
+	stripe_token 			= uuid.uuid4().hex # for simplicity, i generate a random hash here. normally the stripe library and a license would be necessary to generate a valid token
+	phone_number 			= request_json.get('phone_number')
+	country_of_residence 	= request_json.get('country_of_residence')
+	timezone 				= request_json.get('timezone')
+	gender 					= request_json.get('gender')
+	birthday 				= request_json.get('birthday')
 
 	new_customer = Customer(
 		full_name=full_name,
@@ -136,16 +136,16 @@ def update_customer(id):
 
 	customer = Customer.query.get(id)
 
-	customer.email = request_json.get('email', customer.email)
-	customer.full_name = request_json.get('full_name', customer.full_name)
-	customer.password = request_json.get('password', customer.password)
-	customer.fb_id = request_json.get('fb_id', customer.fb_id)
-	customer.google_id = request_json.get('google_id', customer.google_id)
-	customer.phone_number = request_json.get('phone_number', customer.phone_number)
-	customer.country_of_residence = request_json.get('country_of_residence', customer.country_of_residence)
-	customer.timezone = request_json.get('timezone', customer.timezone)
-	customer.gender = request_json.get('gender', customer.gender)
-	customer.birthday = request_json.get('birthday', customer.birthday)
+	customer.email 					= request_json.get('email', customer.email)
+	customer.full_name 				= request_json.get('full_name', customer.full_name)
+	customer.password 				= request_json.get('password', customer.password)
+	customer.fb_id 					= request_json.get('fb_id', customer.fb_id)
+	customer.google_id 				= request_json.get('google_id', customer.google_id)
+	customer.phone_number 			= request_json.get('phone_number', customer.phone_number)
+	customer.country_of_residence 	= request_json.get('country_of_residence', customer.country_of_residence)
+	customer.timezone 				= request_json.get('timezone', customer.timezone)
+	customer.gender 				= request_json.get('gender', customer.gender)
+	customer.birthday 				= request_json.get('birthday', customer.birthday)
 
 	try:
 		db.session.commit()
